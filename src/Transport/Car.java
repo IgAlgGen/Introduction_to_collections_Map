@@ -4,6 +4,7 @@ import Drivers.License_B;
 import Maintenance.Mechanic;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Car extends Transport<License_B> {
     private BodyType bodyType;
@@ -112,4 +113,17 @@ public class Car extends Transport<License_B> {
         System.out.println("Максимальная скорость ");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Car car = (Car) o;
+        return bodyType == car.bodyType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), bodyType);
+    }
 }

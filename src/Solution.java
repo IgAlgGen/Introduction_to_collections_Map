@@ -5,7 +5,6 @@ import Maintenance.Mechanic;
 import Maintenance.ServiceStation;
 import Transport.*;
 
-import java.sql.Driver;
 import java.util.*;
 
 
@@ -36,7 +35,7 @@ public class Solution {
                         true,
                         2.0),
                 mechanicList);
-        Bus bus1 = new Bus(
+        Transport<License_D> bus1 = new Bus(
                 "LIaZ",
                 "Moon Rider",
                 3.,
@@ -47,7 +46,7 @@ public class Solution {
                         10.),
                 mechanicList);
 
-        Track track1 = new Track(
+        Transport<License_C> track1 = new Track(
                 "Kamaz",
                 "6520",
                 8.,
@@ -76,18 +75,23 @@ public class Solution {
         for (int i = 0; i < 4; i++) {
             serviceStation.doService();
         }
-        Map<String, Mechanic> transportMechanicHashMap = new HashMap<>();
-        transportMechanicHashMap.put(String.valueOf(transportList.get(0)), a1);
-        transportMechanicHashMap.put(String.valueOf(transportList.get(1)), a2);
-        transportMechanicHashMap.put(String.valueOf(transportList.get(2)), a3);
+
+        Map<Transport<?>, Mechanic> transportMechanicHashMap = new HashMap<>();
+        transportMechanicHashMap.put(car1, a1);
+        transportMechanicHashMap.put(bus1, a2);
+        transportMechanicHashMap.put(track1, a3);
+
+        System.out.println();
+        System.out.println("car1 hashCode " + car1.hashCode());
+        System.out.println("bus1 hashCode " + bus1.hashCode());
+        System.out.println("track1 hashCode " + track1.hashCode());
 
         System.out.println();
 
-        for (Map.Entry<String, Mechanic> objectObjectEntry: transportMechanicHashMap.entrySet()) {
+        for (Map.Entry<Transport<?>, Mechanic> objectObjectEntry : transportMechanicHashMap.entrySet()) {
             System.out.println(objectObjectEntry.getKey() + " - " + objectObjectEntry.getValue());
         }
-        // Надеюсь, я правильно понял условие: "В консоль выводится информация об автомобилях без повтора.
-        // В мапе в качестве ключей используется другой объект, который является полным аналогом уже существующего объекта."
+
     }
 
     public static void printSolution(Transport<?> transport) {

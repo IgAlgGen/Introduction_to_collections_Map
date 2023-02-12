@@ -4,22 +4,23 @@ import Drivers.DriverInfo;
 import Maintenance.Mechanic;
 
 import java.util.List;
+import java.util.Objects;
 
-import static Transport.Verifications.*;
+import static Verifications.Verifications.*;
 
 
 public abstract class Transport<T extends DriverInfo> implements Emulous {
-    private String mark, model;
-    private double engineVolume;
-    private T driverInfo;
+    final private String mark, model;
+    final private double engineVolume;
+    final private T driverInfo;
     private List<Mechanic> mechanicList;
 
 
     public Transport(String mark, String model, double engineVolume, T driverInfo, List<Mechanic> mechanicList) {
-        setMark(mark);
-        setModel(model);
-        setEngineVolume(engineVolume);
-        setDriverInfo(driverInfo);
+        this.mark = verificationString(mark, "default");
+        this.model = verificationString(model, "default");
+        this.engineVolume = verificationDouble(engineVolume, 1.5);
+        this.driverInfo = driverInfo;
         this.mechanicList = mechanicList;
 
     }
@@ -49,22 +50,6 @@ public abstract class Transport<T extends DriverInfo> implements Emulous {
         return mechanicList;
     }
 
-    public void setDriverInfo(T driverInfo) {
-        this.driverInfo = driverInfo;
-    }
-
-    public void setMark(String mark) {
-        this.mark = verificationMark(mark);
-    }
-
-    public void setModel(String model) {
-        this.model = verificationModel(model);
-    }
-
-    public void setEngineVolume(double engineVolume) {
-        this.engineVolume = verificationEngineVolume(engineVolume);
-    }
-
     public String getMark() {
         return mark;
     }
@@ -88,5 +73,17 @@ public abstract class Transport<T extends DriverInfo> implements Emulous {
                 ", объем двигателя " + engineVolume;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transport<?> transport = (Transport<?>) o;
+        return Double.compare(transport.engineVolume, engineVolume) == 0 && mark.equals(transport.mark) && model.equals(transport.model) && driverInfo.equals(transport.driverInfo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mark, model, engineVolume, driverInfo);
+    }
 
 }
