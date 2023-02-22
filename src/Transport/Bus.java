@@ -4,6 +4,7 @@ import Drivers.License_D;
 import Maintenance.Mechanic;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Bus extends Transport<License_D> {
 
@@ -12,6 +13,11 @@ public class Bus extends Transport<License_D> {
     public Bus(String mark, String model, double engineVolume, int capacityE, License_D driverInfo, List<Mechanic> mechanicList) {
         super(mark, model, engineVolume, driverInfo, mechanicList);
         this.capacity = Capacity.getValue(capacityE);
+    }
+
+    public Bus(String mark, String model, double engineVolume, License_D driverInfo, List<Mechanic> mechanicList, Capacity capacity) {
+        super(mark, model, engineVolume, driverInfo, mechanicList);
+        this.capacity = capacity;
     }
 
     public Capacity getCapacity() {
@@ -97,4 +103,17 @@ public class Bus extends Transport<License_D> {
         System.out.println("Максимальная скорость ");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Bus bus = (Bus) o;
+        return capacity == bus.capacity;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), capacity);
+    }
 }

@@ -1,7 +1,6 @@
 package Drivers;
 
-import static Drivers.Verifications.verificationExperience;
-import static Drivers.Verifications.verificationFullName;
+import static Verifications.Verifications.*;
 
 
 public abstract class DriverInfo {
@@ -10,9 +9,9 @@ public abstract class DriverInfo {
     private double experience;
 
     public DriverInfo(String fullName, boolean havingLicense, double experience) {
-        setFullName(fullName);
-        setHavingLicense(havingLicense);
-        setExperience(experience);
+        this.fullName = verificationString(fullName,"default");
+        this.havingLicense = havingLicense;
+        this.experience = verificationDouble(experience, 0.1);
     }
 
     public void startDriving() {
@@ -28,7 +27,7 @@ public abstract class DriverInfo {
     }
 
     public void setFullName(String fullName) {
-        this.fullName = verificationFullName(fullName);
+        this.fullName = verificationString(fullName, "default");
     }
 
     public void setHavingLicense(boolean havingLicense) {
@@ -36,7 +35,7 @@ public abstract class DriverInfo {
     }
 
     public void setExperience(double experience) {
-        this.experience = verificationExperience(experience);
+        this.experience = verificationDouble(experience, 0.2);
     }
 
     public String getFullName() {

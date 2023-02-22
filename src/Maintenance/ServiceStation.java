@@ -5,13 +5,13 @@ import Transport.*;
 import java.util.Queue;
 
 public class ServiceStation {
-    private Queue<Transport<?>> queueOfVehicles;
+    private final Queue<Transport<?>> queueOfVehicles;
 
     public ServiceStation(Queue<Transport<?>> queueOfVehicles) {
         this.queueOfVehicles = queueOfVehicles;
     }
 
-    public void addTransport(Transport transport) {
+    public void addTransport(Transport<?> transport) {
         if (transport.isNeedService()) {
             queueOfVehicles.add(transport);
         }

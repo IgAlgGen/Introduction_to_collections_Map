@@ -35,7 +35,7 @@ public class Solution {
                         true,
                         2.0),
                 mechanicList);
-        Bus bus1 = new Bus(
+        Transport<License_D> bus1 = new Bus(
                 "LIaZ",
                 "Moon Rider",
                 3.,
@@ -46,7 +46,7 @@ public class Solution {
                         10.),
                 mechanicList);
 
-        Track track1 = new Track(
+        Transport<License_C> track1 = new Track(
                 "Kamaz",
                 "6520",
                 8.,
@@ -76,25 +76,40 @@ public class Solution {
             serviceStation.doService();
         }
 
+        Map<Transport<?>, Mechanic> transportMechanicHashMap = new HashMap<>();
+        transportMechanicHashMap.put(car1, a1);
+        transportMechanicHashMap.put(bus1, a2);
+        transportMechanicHashMap.put(track1, a3);
+
+        System.out.println();
+        System.out.println("car1 hashCode " + car1.hashCode());
+        System.out.println("bus1 hashCode " + bus1.hashCode());
+        System.out.println("track1 hashCode " + track1.hashCode());
+
+        System.out.println();
+
+        for (Map.Entry<Transport<?>, Mechanic> objectObjectEntry : transportMechanicHashMap.entrySet()) {
+            System.out.println(objectObjectEntry.getKey() + " - " + objectObjectEntry.getValue());
+        }
+
     }
 
-   public static void printSolution(Transport<?> transport) {
-       System.out.println("Водитель " + transport.getDriverInfo() + ", управляет автомобилем " + transport + " и будет участвовать в заезде.");
-   }
+    public static void printSolution(Transport<?> transport) {
+        System.out.println("Водитель " + transport.getDriverInfo() + ", управляет автомобилем " + transport + " и будет участвовать в заезде.");
+    }
 
-   public static void passingDiagnostics(Transport<?> transport) {
+    public static void passingDiagnostics(Transport<?> transport) {
 
-       try {
-           if (transport.isNeedDiagnostics()) {
-               System.out.println("Транспортное средство " +transport + " прошло диагностику.");
-           } else {
-               System.out.println("Транспортное средство " + transport + " не опознано.");
-           }
-       } catch (TransportTypeException e) {
-           System.out.println("Автобусы не должны проходить диагностику.");
-       }
-   }
-
+        try {
+            if (transport.isNeedDiagnostics()) {
+                System.out.println("Транспортное средство " + transport + " прошло диагностику.");
+            } else {
+                System.out.println("Транспортное средство " + transport + " не опознано.");
+            }
+        } catch (TransportTypeException e) {
+            System.out.println("Автобусы не должны проходить диагностику.");
+        }
+    }
 
 
 }

@@ -2,13 +2,18 @@ package Maintenance;
 
 import Transport.Transport;
 
+import java.util.Objects;
+
+import static Verifications.Verifications.*;
+
 public class Mechanic {
-    private String firstName, secondName, company;
+    final private String firstName, secondName;
+    private String company;
 
     public Mechanic(String firstName, String secondName, String company) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.company = company;
+        this.firstName = verificationString(firstName, "default");
+        this.secondName = verificationString(secondName, "default");
+        this.company = verificationString(company, "default");
     }
 
     public <T extends Transport<?>> void doMaintenance(T vehicle) {
@@ -31,16 +36,8 @@ public class Mechanic {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getSecondName() {
         return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
     }
 
     public String getCompany() {
@@ -48,6 +45,19 @@ public class Mechanic {
     }
 
     public void setCompany(String company) {
-        this.company = company;
+        this.company = verificationString(company, "default");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mechanic mechanic = (Mechanic) o;
+        return firstName.equals(mechanic.firstName) && secondName.equals(mechanic.secondName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, secondName);
     }
 }
